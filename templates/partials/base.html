@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>{% trans "E-commerce - Multipurpose eCommerce HTML Template" %}</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/imgs/theme/favicon.svg' %}" />
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/slider-range.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    {% block head %}
+    {% endblock head %}
+</head>
+
+<body>
+    <header class="header-area header-style-1 header-height-2">
+        <div class="mobile-promotion">
+            <span>{% trans "Grand opening," %} <strong>{% trans "up to 15%" %}</strong> {% trans "off all items. Only" %} <strong>{% trans "3 days" %}</strong> {% trans "left" %}</span>
+        </div>
+        <div class="header-top header-top-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info">
+                            <ul>
+                                <li><span>{% trans "About Us" %}</span></li>
+                                <li><span>{% trans "My Account" %}</span></li>
+                                <li><span>{% trans "Wishlist" %}</span></li>
+                                <li><span>{% trans "Order Tracking" %}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-4">
+                        <div class="text-center">
+                            <div id="news-flash" class="d-inline-block">
+                                <ul>
+                                    <li>{% trans "100% Secure delivery without contacting the courier" %}</li>
+                                    <li>{% trans "Super Value Deals - Save more with coupons" %}</li>
+                                    <li>{% trans "Trendy silver jewelry, save up 35% off today" %}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info header-info-right">
+                            <ul>
+                                <li>{% trans "Need help? Call Us:" %} <strong class="text-brand"> + 1800 900</strong></li>
+                                <li>
+                                    <a class="language-dropdown-active" href="#">{% trans "English" %} <i class="fi-rs-angle-small-down"></i></a>
+                                    <ul class="language-dropdown">
+                                        <li>
+                                            <a href="#"><img src="{% static 'assets/imgs/theme/flag-fr.png' %}" alt="" />{% trans "Français" %}</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="{% static 'assets/imgs/theme/flag-dt.png' %}" alt="" />{% trans "Deutsch" %}</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="{% static 'assets/imgs/theme/flag-ru.png' %}" alt="" />{% trans "Русский" %}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="language-dropdown-active" href="#">USD <i class="fi-rs-angle-small-down"></i></a>
+                                    <ul class="language-dropdown">
+                                        <li>
+                                            <a href="#"><img src="{% static 'assets/imgs/theme/flag-fr.png' %}" alt="" />INR</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="{% static 'assets/imgs/theme/flag-dt.png' %}" alt="" />MBP</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="{% static 'assets/imgs/theme/flag-ru.png' %}" alt="" />EU</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="header-wrap">
+                    <div class="logo logo-width-1">
+                        <span><img src="{% static 'assets/imgs/theme/logo.svg' %}" alt="logo" /></span>
+                    </div>
+                    <div class="header-right">
+                        <div class="search-style-2">
+                            <form action="#" method="GET">
+                                <select class="select-active">
+                                    <option>{% trans "All Categories" %}</option>
+                                    <option>{% trans "Milks and Dairies" %}</option>
+                                    <option>{% trans "Wines & Alcohol" %}</option>
+                                    <option>{% trans "Clothing & Beauty" %}</option>
+                                    <option>{% trans "Pet Foods & Toy" %}</option>
+                                    <option>{% trans "Fast food" %}</option>
+                                    <option>{% trans "Baking material" %}</option>
+                                    <option>{% trans "Vegetables" %}</option>
+                                    <option>{% trans "Fresh Seafood" %}</option>
+                                    <option>{% trans "Noodles & Rice" %}</option>
+                                    <option>{% trans "Ice cream" %}</option>
+                                </select>
+                                <input type="text" placeholder="{% trans 'Search for items...' %}" name="q" />
+                                <button class="material-symbols-outlined" type="submit"><span class="material-symbols-outlined">search</span></button>
+                            </form>
+                        </div>
+                        <div class="header-action-right">
+                            <div class="header-action-2">
+                                <div class="header-action-icon-2">
+                                    <span>
+                                        <img class="svgInject" alt="E-commerce" src="{% static 'assets/imgs/theme/icons/icon-heart.svg' %}" />
+                                        <span class="pro-count blue">0</span>
+                                    </span>
+                                    <span><span class="lable">{% trans "Wishlist" %}</span></span>
+                                </div>
+                                <div class="header-action-icon-2">
+                                    <span class="mini-cart-icon">
+                                        <img alt="E-commerce" src="{% static 'assets/imgs/theme/icons/icon-cart.svg' %}" />
+                                        <span class="pro-count blue cart-items-count">0</span>
+                                    </span>
+                                    <span><span class="lable">{% trans "Cart" %}</span></span>
+                                    <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                                        <div class="shopping-cart-footer">
+                                            <div class="shopping-cart-button">
+                                                <span class="outline">{% trans "View cart" %}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="header-action-icon-2">
+                                    <span>
+                                        <img class="svgInject" alt="E-commerce" src="{% static 'assets/imgs/theme/icons/icon-user.svg' %}" />
+                                    </span>
+                                    <span><span class="lable ml-0">{% trans "Account" %}</span></span>
+                                    <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
+                                        <ul>
+                                            <li><span><i class="fi fi-rs-user mr-10"></i>{% trans "My Account" %}</span></li>
+                                            <li><span><i class="fi fi-rs-user mr-10"></i>{% trans "Admin Dashboard" %}</span></li>
+                                            <li><span><i class="fi fi-rs-heart mr-10"></i>{% trans "My Wishlist" %}</span></li>
+                                            <li><span><i class="fi fi-rs-settings-sliders mr-10"></i>{% trans "Setting" %}</span></li>
+                                            <li><span><i class="fi fi-rs-sign-in mr-10"></i>{% trans "Sign In" %}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom header-bottom-bg-color sticky-bar">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="logo logo-width-1 d-block d-lg-none">
+                        <span><img src="{% static 'assets/imgs/theme/logo.svg' %}" alt="logo" /></span>
+                    </div>
+                    <div class="header-nav d-none d-lg-flex">
+                        <div class="main-categori-wrap d-none d-lg-block">
+                            <a class="categories-button-active" href="#">
+                                <span class="fi-rs-apps"></span> <span class="et">{% trans "Browse" %}</span> {% trans "All Categories" %}
+                                <i class="fi-rs-angle-down"></i>
+                            </a>
+                            <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
+                                <div class="d-flex categori-dropdown-inner">
+                                    <ul>
+                                        <li>
+                                            <span> <img src="{% static 'assets/imgs/theme/category-1.png' %}" alt="" />{% trans "Electronics" %}</span>
+                                        </li>
+                                        <li>
+                                            <span> <img src="{% static 'assets/imgs/theme/category-2.png' %}" alt="" />{% trans "Fashion" %}</span>
+                                        </li>
+                                        <li>
+                                            <span> <img src="{% static 'assets/imgs/theme/category-3.png' %}" alt="" />{% trans "Home & Garden" %}</span>
+                                        </li>
+                                        <li>
+                                            <span> <img src="{% static 'assets/imgs/theme/category-4.png' %}" alt="" />{% trans "Sports" %}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="more_categories"><span class="icon"></span> <span class="heading-sm-1">{% trans "Show more..." %}</span></div>
+                            </div>
+                        </div>
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
+                            <nav>
+                                <ul>
+                                    <li class="hot-deals"><img src="{% static 'assets/imgs/theme/icons/icon-hot.svg' %}" alt="hot deals" /><span>{% trans "Deals" %}</span></li>
+                                    <li>
+                                        <span class="active">{% trans "Home" %}</span>
+                                    </li>
+                                    <li>
+                                        <a href="#">{% trans "Category" %} <i class="fi-rs-angle-down"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><span>{% trans "Electronics" %}</span></li>
+                                            <li><span>{% trans "Fashion" %}</span></li>
+                                            <li><span>{% trans "Home & Garden" %}</span></li>
+                                            <li><span>{% trans "Sports" %}</span></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span>{% trans "Shop" %}</span>
+                                    </li>
+                                    <li>
+                                        <span>{% trans "Vendors" %}</span>
+                                    </li>
+                                    <li class="position-static">
+                                        <a href="#">{% trans "Mega menu" %} <i class="fi-rs-angle-down"></i></a>
+                                        <ul class="mega-menu">
+                                            <li class="sub-mega-menu sub-mega-menu-width-22">
+                                                <a class="menu-title" href="#">{% trans "Fruit & Vegetables" %}</a>
+                                                <ul>
+                                                    <li><a href="#">{% trans "Meat & Poultry" %}</a></li>
+                                                    <li><a href="#">{% trans "Fresh Vegetables" %}</a></li>
+                                                    <li><a href="#">{% trans "Herbs & Seasonings" %}</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="sub-mega-menu sub-mega-menu-width-22">
+                                                <a class="menu-title" href="#">{% trans "Breakfast & Dairy" %}</a>
+                                                <ul>
+                                                    <li><a href="#">{% trans "Milk & Flavoured Milk" %}</a></li>
+                                                    <li><a href="#">{% trans "Butter and Margarine" %}</a></li>
+                                                    <li><a href="#">{% trans "Eggs Substitutes" %}</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="sub-mega-menu sub-mega-menu-width-34">
+                                                <div class="menu-banner-wrap">
+                                                    <a href="#"><img src="{% static 'assets/imgs/banner/banner-menu.png' %}" alt="E-commerce" /></a>
+                                                    <div class="menu-banner-content">
+                                                        <h4>{% trans "Hot deals" %}</h4>
+                                                        <h3>{% trans "Don't miss" %}<br />{% trans "Trending" %}</h3>
+                                                        <div class="menu-banner-price">
+                                                            <span class="new-price text-success">{% trans "Save to 50%" %}</span>
+                                                        </div>
+                                                        <div class="menu-banner-btn">
+                                                            <a href="#">{% trans "Shop now" %}</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="menu-banner-discount">
+                                                        <h3><span>25%</span> {% trans "off" %}</h3>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span>{% trans "Blog" %}</span>
+                                    </li>
+                                    <li>
+                                        <a href="#">{% trans "Pages" %} <i class="fi-rs-angle-down"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><span>{% trans "About Us" %}</span></li>
+                                            <li><span>{% trans "Contact" %}</span></li>
+                                            <li><span>{% trans "My Dashboard" %}</span></li>
+                                            <li><span>{% trans "Purchase Guide" %}</span></li>
+                                            <li><span>{% trans "Privacy Policy" %}</span></li>
+                                            <li><span>{% trans "Terms of Service" %}</span></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span>{% trans "Contact" %}</span>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="hotline d-none d-lg-flex">
+                        <img src="{% static 'assets/imgs/theme/icons/icon-headphone.svg' %}" alt="hotline" />
+                        <p>1900 - 888<span>{% trans "24/7 Support Center" %}</span></p>
+                    </div>
+                    <div class="header-action-icon-2 d-block d-lg-none">
+                        <div class="burger-icon burger-icon-white">
+                            <span class="burger-icon-top"></span>
+                            <span class="burger-icon-mid"></span>
+                            <span class="burger-icon-bottom"></span>
+                        </div>
+                    </div>
+                    <div class="header-action-right d-block d-lg-none">
+                        <div class="header-action-2">
+                            <div class="header-action-icon-2">
+                                <span>
+                                    <img alt="E-commerce" src="{% static 'assets/imgs/theme/icons/icon-heart.svg' %}" />
+                                    <span class="pro-count blue">0</span>
+                                </span>
+                            </div>
+                            <div class="header-action-icon-2">
+                                <span class="mini-cart-icon">
+                                    <img alt="E-commerce" src="{% static 'assets/imgs/theme/icons/icon-cart.svg' %}" />
+                                    <span class="pro-count white cart-items-count">0</span>
+                                </span>
+                                <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                                    <div class="shopping-cart-footer">
+                                        <div class="shopping-cart-button">
+                                            <span>{% trans "View cart" %}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+   
+    <div class="mobile-header-active mobile-header-wrapper-style">
+        <div class="mobile-header-wrapper-inner">
+            <div class="mobile-header-top">
+                <div class="mobile-header-logo">
+                    <span><img src="{% static 'assets/imgs/theme/logo.svg' %}" alt="logo" /></span>
+                </div>
+                <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                    <button class="close-style search-close">
+                        <i class="icon-top"></i>
+                        <i class="icon-bottom"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-header-content-area">
+                <div class="mobile-search search-style-3 mobile-header-border">
+                    <form action="#">
+                        <input type="text" placeholder="{% trans 'Search for items…' %}" />
+                        <button type="submit"><i class="fi-rs-search"></i></button>
+                    </form>
+                </div>
+                <div class="mobile-menu-wrap mobile-header-border">
+                    <!-- mobile menu start -->
+                    <nav>
+                        <ul class="mobile-menu font-heading">
+                            <li class="menu-item-has-children">
+                                <span>{% trans "Home" %}</span>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <a href="#">{% trans "Shop" %}</a>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <a href="#">{% trans "Vendors" %}</a>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <a href="#">{% trans "Pages" %}</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">{% trans "About Us" %}</a></li>
+                                    <li><a href="#">{% trans "Contact" %}</a></li>
+                                    <li><a href="#">{% trans "My Account" %}</a></li>
+                                    <li><a href="#">{% trans "Login" %}</a></li>
+                                    <li><a href="#">{% trans "Register" %}</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- mobile menu end -->
+                </div>
+                <div class="mobile-header-info-wrap">
+                    <div class="single-mobile-header-info">
+                        <a href="#"><i class="fi-rs-marker"></i> {% trans "Our location" %} </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#"><i class="fi-rs-user"></i>{% trans "Log In / Sign Up" %} </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#"><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789 </a>
+                    </div>
+                </div>
+                <div class="mobile-social-icon mb-50">
+                    <h6 class="mb-15">{% trans "Follow Us" %}</h6>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-facebook-white.svg' %}" alt="" /></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-twitter-white.svg' %}" alt="" /></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-instagram-white.svg' %}" alt="" /></a>
+                </div>
+                <div class="site-copyright">{% trans "Copyright 2019 - Present © Desphixs. All rights reserved. Powered by Desphixs." %}</div>
+            </div>
+        </div>
+    </div>
+    <!--End header-->
+
+    {% block content %}
+    <!-- Main content area -->
+    <main>
+        <div class="container">
+            <div class="row" style="padding: 50px 0;">
+                <div class="col-12">
+                    <h1>{% trans "Welcome to E-commerce Store" %}</h1>
+                    <p>{% trans "This is a simplified version of the e-commerce template. All dynamic content and Django URL tags have been removed to make it work as a standalone HTML file." %}</p>
+                   
+                    <div class="row" style="margin-top: 40px;">
+                        <div class="col-md-3">
+                            <div class="card" style="border: 1px solid #ddd; padding: 20px; margin-bottom: 20px;">
+                                <h5>{% trans "Featured Products" %}</h5>
+                                <p>{% trans "Browse our featured products collection." %}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card" style="border: 1px solid #ddd; padding: 20px; margin-bottom: 20px;">
+                                <h5>{% trans "Best Sellers" %}</h5>
+                                <p>{% trans "Check out our best selling items." %}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card" style="border: 1px solid #ddd; padding: 20px; margin-bottom: 20px;">
+                                <h5>{% trans "New Arrivals" %}</h5>
+                                <p>{% trans "Discover the latest products in our store." %}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card" style="border: 1px solid #ddd; padding: 20px; margin-bottom: 20px;">
+                                <h5>{% trans "Special Offers" %}</h5>
+                                <p>{% trans "Don't miss our special deals and discounts." %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% endblock content %}
+
+    <footer class="main">
+        <section class="newsletter mb-15">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="position-relative newsletter-inner">
+                            <div class="newsletter-content">
+                                <h2 class="mb-20">
+                                    {% trans "Stay home & get your daily" %} <br /> {% trans "needs from our shop" %}
+                                </h2>
+                                <p class="mb-45">{% trans "Start Your Daily Shopping with" %} <span class="text-brand">{% trans "E-commerce Mart" %}</span></p>
+                                <form class="form-subcriber d-flex">
+                                    <input type="email" placeholder="{% trans 'Your email address' %}" />
+                                    <button class="btn" type="submit">{% trans "Subscribe" %}</button>
+                                </form>
+                            </div>
+                            <img src="{% static 'assets/imgs/banner/banner-9.png' %}" alt="newsletter" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+       
+        <section class="featured section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6 mb-md-4 mb-xl-0">
+                        <div class="banner-left-icon d-flex align-items-center wow fadeIn animated">
+                            <div class="banner-icon">
+                                <img src="{% static 'assets/imgs/theme/icons/icon-1.svg' %}" alt="" />
+                            </div>
+                            <div class="banner-text">
+                                <h3 class="icon-box-title">{% trans "Best prices & offers" %}</h3>
+                                <p>{% trans "Orders $50 or more" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                        <div class="banner-left-icon d-flex align-items-center wow fadeIn animated">
+                            <div class="banner-icon">
+                                <img src="{% static 'assets/imgs/theme/icons/icon-2.svg' %}" alt="" />
+                            </div>
+                            <div class="banner-text">
+                                <h3 class="icon-box-title">{% trans "Free delivery" %}</h3>
+                                <p>{% trans "24/7 amazing services" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                        <div class="banner-left-icon d-flex align-items-center wow fadeIn animated">
+                            <div class="banner-icon">
+                                <img src="{% static 'assets/imgs/theme/icons/icon-3.svg' %}" alt="" />
+                            </div>
+                            <div class="banner-text">
+                                <h3 class="icon-box-title">{% trans "Great daily deal" %}</h3>
+                                <p>{% trans "When you sign up" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                        <div class="banner-left-icon d-flex align-items-center wow fadeIn animated">
+                            <div class="banner-icon">
+                                <img src="{% static 'assets/imgs/theme/icons/icon-4.svg' %}" alt="" />
+                            </div>
+                            <div class="banner-text">
+                                <h3 class="icon-box-title">{% trans "Wide assortment" %}</h3>
+                                <p>{% trans "Mega Discounts" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                        <div class="banner-left-icon d-flex align-items-center wow fadeIn animated">
+                            <div class="banner-icon">
+                                <img src="{% static 'assets/imgs/theme/icons/icon-5.svg' %}" alt="" />
+                            </div>
+                            <div class="banner-text">
+                                <h3 class="icon-box-title">{% trans "Easy returns" %}</h3>
+                                <p>{% trans "Within 30 days" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+       
+        <section class="section-padding footer-mid">
+            <div class="container pt-15 pb-20">
+                <div class="row">
+                    <div class="col">
+                        <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0">
+                            <div class="logo mb-30">
+                                <span class="mb-15"><img src="{% static 'assets/imgs/theme/logo.svg' %}" alt="logo" /></span>
+                                <p class="font-lg text-heading">{% trans "Awesome grocery store website template" %}</p>
+                            </div>
+                            <ul class="contact-infor">
+                                <li><img src="{% static 'assets/imgs/theme/icons/icon-location.svg' %}" alt="" /><strong>{% trans "Address:" %} </strong> <span>{% trans "5171 W Campbell Ave undefined Kent, Utah 53127 United States" %}</span></li>
+                                <li><img src="{% static 'assets/imgs/theme/icons/icon-contact.svg' %}" alt="" /><strong>{% trans "Call Us:" %}</strong><span>(+91) - 540-025-124553</span></li>
+                                <li><img src="{% static 'assets/imgs/theme/icons/icon-email-2.svg' %}" alt="" /><strong>{% trans "Email:" %}</strong><span>info@example.com</span></li>
+                                <li><img src="{% static 'assets/imgs/theme/icons/icon-clock.svg' %}" alt="" /><strong>{% trans "Hours:" %}</strong><span>{% trans "10:00 - 18:00, Mon - Sat" %}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-link-widget col">
+                        <h4 class="widget-title">{% trans "Company" %}</h4>
+                        <ul class="footer-list mb-sm-5 mb-md-0">
+                            <li><a href="#">{% trans "About Us" %}</a></li>
+                            <li><a href="#">{% trans "Delivery Information" %}</a></li>
+                            <li><a href="#">{% trans "Privacy Policy" %}</a></li>
+                            <li><a href="#">{% trans "Terms & Conditions" %}</a></li>
+                            <li><a href="#">{% trans "Contact Us" %}</a></li>
+                            <li><a href="#">{% trans "Support Center" %}</a></li>
+                            <li><a href="#">{% trans "Careers" %}</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-widget col">
+                        <h4 class="widget-title">{% trans "Account" %}</h4>
+                        <ul class="footer-list mb-sm-5 mb-md-0">
+                            <li><a href="#">{% trans "Sign In" %}</a></li>
+                            <li><a href="#">{% trans "View Cart" %}</a></li>
+                            <li><a href="#">{% trans "My Wishlist" %}</a></li>
+                            <li><a href="#">{% trans "Track My Order" %}</a></li>
+                            <li><a href="#">{% trans "Help Ticket" %}</a></li>
+                            <li><a href="#">{% trans "Shipping Details" %}</a></li>
+                            <li><a href="#">{% trans "Compare products" %}</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-widget col">
+                        <h4 class="widget-title">{% trans "Corporate" %}</h4>
+                        <ul class="footer-list mb-sm-5 mb-md-0">
+                            <li><a href="#">{% trans "Become a Vendor" %}</a></li>
+                            <li><a href="#">{% trans "Affiliate Program" %}</a></li>
+                            <li><a href="#">{% trans "Farm Business" %}</a></li>
+                            <li><a href="#">{% trans "Farm Careers" %}</a></li>
+                            <li><a href="#">{% trans "Our Suppliers" %}</a></li>
+                            <li><a href="#">{% trans "Accessibility" %}</a></li>
+                            <li><a href="#">{% trans "Promotions" %}</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-widget col">
+                        <h4 class="widget-title">{% trans "Popular" %}</h4>
+                        <ul class="footer-list mb-sm-5 mb-md-0">
+                            <li><a href="#">{% trans "Milk & Flavoured Milk" %}</a></li>
+                            <li><a href="#">{% trans "Butter and Margarine" %}</a></li>
+                            <li><a href="#">{% trans "Eggs Substitutes" %}</a></li>
+                            <li><a href="#">{% trans "Marmalades" %}</a></li>
+                            <li><a href="#">{% trans "Sour Cream and Dips" %}</a></li>
+                            <li><a href="#">{% trans "Tea & Kombucha" %}</a></li>
+                            <li><a href="#">{% trans "Cheese" %}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="container pb-30">
+            <div class="row align-items-center">
+                <div class="col-12 mb-30">
+                    <div class="footer-bottom"></div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6">
+                    <p class="font-sm mb-0">{% trans "&copy; 2022, Nest - HTML Ecommerce Template" %}<br />{% trans "All rights reserved" %}</p>
+                </div>
+                <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
+                    <div class="hotline d-lg-inline-flex mr-30">
+                        <img src="{% static 'assets/imgs/theme/icons/phone-call.svg' %}" alt="hotline" />
+                        <p>1900 - 6666<span>{% trans "Working 8:00 - 22:00" %}</span></p>
+                    </div>
+                    <div class="hotline d-lg-inline-flex">
+                        <img src="{% static 'assets/imgs/theme/icons/phone-call.svg' %}" alt="hotline" />
+                        <p>1900 - 8888<span>{% trans "24/7 Support Center" %}</span></p>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 text-end d-none d-md-block">
+                    <div class="mobile-social-icon">
+                        <h6>{% trans "Follow Us" %}</h6>
+                        <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-facebook-white.svg' %}" alt="" /></a>
+                        <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-twitter-white.svg' %}" alt="" /></a>
+                        <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-instagram-white.svg' %}" alt="" /></a>
+                        <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-pinterest-white.svg' %}" alt="" /></a>
+                        <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-youtube-white.svg' %}" alt="" /></a>
+                    </div>
+                    <p class="font-sm">{% trans "Up to 15% discount on your first subscribe" %}</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    
+    <!-- Vendor JS-->
+    <script src="{% static 'assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/slick.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery.syotimer.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/wow.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/magnific-popup.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/select2.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/waypoints.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/counterup.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/images-loaded.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/isotope.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/scrollup.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery.vticker-min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery.theia.sticky.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery.elevatezoom.js' %}"></script>
+    <!-- Template  JS -->
+    <script src="{% static 'assets/js/main.js?v=5.3' %}"></script>
+</body>
+</html>
