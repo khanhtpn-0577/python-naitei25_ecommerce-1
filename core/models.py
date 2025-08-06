@@ -208,6 +208,8 @@ class Product(models.Model):
         choices=C.PRODUCT_STATUS_CHOICES,
         default='in_review'
     )
+    
+    tags = TaggableManager(blank=True)
     status = models.BooleanField(default=True)
     in_stock = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
