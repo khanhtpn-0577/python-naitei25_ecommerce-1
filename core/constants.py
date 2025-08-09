@@ -39,6 +39,13 @@ ROLE_CHOICES = (
 )
 
 # Return Request Status Choices
+
+STATUS_DRAFT = "draft"
+STATUS_DISABLED = "disabled"
+STATUS_REJECTED = "rejected"
+STATUS_IN_REVIEW = "in_review"
+STATUS_PUBLISHED = "published"
+
 RETURN_STATUS_CHOICES = (
     ('pending', 'Pending'),
     ('approved', 'Approved'),
