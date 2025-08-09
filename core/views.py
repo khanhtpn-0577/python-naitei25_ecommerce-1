@@ -272,14 +272,15 @@ def product_detail_view(request, pid):
     #product = Product.objects.get(pid = pid)
     # Lấy product theo pid, nếu không tìm thấy -> raise 404
     product = get_object_or_404(Product, pid=pid)
-
+    products = Product.objects.filter(category=product.category).exclude(pid=pid)[:4]
     address = None
     if request.user.is_authenticated:
         address = Address.objects.filter(user=request.user).first()
 
     context = {
         "p": product,
-        "address": address
+        "address": address,
+        "products": products
     }
 
     return render(request, "core/product-detail.html", context)
