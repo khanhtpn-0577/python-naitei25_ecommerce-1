@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.utils.translation import gettext as _
 from userauths.models import User
-
+from utils.email_service import send_welcome_email
 
 def register_view(request):
     if request.method == "POST":
@@ -13,6 +13,8 @@ def register_view(request):
             new_user = form.save()
             username = form.cleaned_data.get("username")
             role = form.cleaned_data.get("role")
+            email = form.cleaned_data.get("email")
+            send_welcome_email(email, username)
             messages.success(
                 request,
                 _(f"Hello {username}, your account was created successfully.")
@@ -77,5 +79,5 @@ def logout_view(request):
     logout(request)
     messages.success(request, "You logged out.")
     return redirect("userauths:sign-in")
-        
+
         
