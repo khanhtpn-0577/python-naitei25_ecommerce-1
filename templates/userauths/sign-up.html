@@ -32,7 +32,7 @@
                                             <h1 class="mb-5">{% trans "Create an Account" %}</h1>
                                             <p class="mb-30">{% trans "Already have an account?" %} <a href="{% url 'userauths:sign-in' %}">Login</a></p>
                                         </div>
-                                        <form method="post" method="POST">
+                                        <form method="POST" action="">
                                             {% csrf_token %}
                                             <div class="form-group">
                                                 {{form.username}}
