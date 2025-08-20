@@ -1,224 +1,339 @@
 {% extends 'partials/base.html' %}
 {% load static %}
-{% load i18n %}
-
-{% block head %}
-{% endblock head %}
-
 {% block content %}
-<section class="content-main">
-    <div class="content-header">
-        <div>
-            <h2 class="content-title card-title">{% trans "Dashboard" %}</h2>
-            <p>{% trans "Whole data about your business here" %}</p>
-        </div>
-        <div>
-            <a href="#" class="btn btn-primary">
-                <i class="text-muted material-icons md-post_add"></i>
-                {% trans "Create Product" %}
-            </a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3">
-            <div class="card card-body mb-4">
-                <article class="icontext">
-                    <span class="icon icon-sm rounded-circle bg-primary-light">
-                        <i class="text-primary material-icons md-monetization_on"></i>
-                    </span>
-                    <div class="text">
-                        <h6 class="mb-1 card-title">{% trans "Revenue" %}</h6>
-                        <span>$100.00</span>
-                    </div>
-                </article>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="card card-body mb-4">
-                <article class="icontext">
-                    <span class="icon icon-sm rounded-circle bg-success-light">
-                        <i class="text-success material-icons md-local_shipping"></i>
-                    </span>
-                    <div class="text">
-                        <h6 class="mb-1 card-title">{% trans "Orders" %}</h6>
-                        <span>16</span>
-                    </div>
-                </article>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="card card-body mb-4">
-                <article class="icontext">
-                    <span class="icon icon-sm rounded-circle bg-warning-light">
-                        <i class="text-warning material-icons md-qr_code"></i>
-                    </span>
-                    <div class="text">
-                        <h6 class="mb-1 card-title">{% trans "Products" %}</h6>
-                        <span>21</span>
-                    </div>
-                </article>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="card card-body mb-4">
-                <article class="icontext">
-                    <span class="icon icon-sm rounded-circle bg-info-light">
-                        <i class="text-info material-icons md-shopping_basket"></i>
-                    </span>
-                    <div class="text">
-                        <h6 class="mb-1 card-title">{% trans "Monthly Earning" %}</h6>
-                        <span>$51</span>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </div>
-
-    <div class="card mb-4">
-        <header class="card-header">
-            <h4 class="card-title">{% trans "Recent Orders" %}</h4>
-            <div class="row align-items-center">
-                <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
-                    <div class="custom_select">
-                        <select class="form-select select-nice">
-                            <option selected>{% trans "Oldest to Newest" %}</option>
-                            <option>{% trans "Newest to Oldest" %}</option>
-                            <option>{% trans "Highest Price" %}</option>
-                            <option>{% trans "Lowest Price" %}</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-md-2 col-6">
-                    <div class="custom_select">
-                        <select class="form-select select-nice">
-                            <option selected>{% trans "Status" %}</option>
-                            <option>{% trans "All" %}</option>
-                            <option>{% trans "Paid" %}</option>
-                            <option>{% trans "Pending" %}</option>
-                            <option>{% trans "Cancelled" %}</option>
-                        </select>
-                    </div>
+{% load i18n %}
+    <main class="main pages">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>{% trans "Home" %}</a>
+                    <span></span> {% trans "Pages" %} <span></span> {% trans "My Account" %}
                 </div>
             </div>
-        </header>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table align-middle table-nowrap mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th scope="col" class="text-center">
-                                <div class="form-check align-middle">
-                                    <input class="form-check-input" type="checkbox" id="transactionCheck01" />
-                                    <label class="form-check-label" for="transactionCheck01"></label>
+        </div>
+        <div class="page-content pt-150 pb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 m-auto">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="dashboard-menu">
+                                    <ul class="nav flex-column" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><i class="fi-rs-user mr-10"></i>{% trans "Profile" %}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>{% trans "Dashboard" %}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>{% trans "Orders" %}</a>
+                                        </li>
+                                        <!-- <li class="nav-item">
+                                            <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
+                                        </li> -->
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>{% trans "My Address" %}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>{% trans "Account details" %}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'userauths:sign-out' %}"><i class="fi-rs-sign-out mr-10"></i>{% trans "Logout" %}</a>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </th>
-                            <th class="align-middle" scope="col">{% trans "Order ID" %}</th>
-                            <th class="align-middle" scope="col">{% trans "Billing Name" %}</th>
-                            <th class="align-middle" scope="col">{% trans "Date" %}</th>
-                            <th class="align-middle" scope="col">{% trans "Total" %}</th>
-                            <th class="align-middle" scope="col">{% trans "Payment Status" %}</th>
-                            <th class="align-middle" scope="col">{% trans "View Details" %}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="transactionCheck02" />
-                                    <label class="form-check-label" for="transactionCheck02"></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content account dashboard-content pl-50">
+                                    <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="card">
+                                            <div class="card-header border-bottom">
+                                                <h3 class="mb-0">{% trans "My Profile" %}</h3>
+                                            </div>
+                                            <div class="card-body mb-2" style="display: flex; align-items: center; gap: 10px;">
+                                                <div>
+                                                    {% if user_profile.image %}
+                                                    <span><img src="{{ user_profile.image.url }}" style="width: 150px; object-fit: cover; border-radius:50%; height:150px;" alt=""></span>
+                                                    {% else %}
+                                                    <span><img src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" style="width: 150px; object-fit: cover; border-radius:50%; height:150px;" alt=""></span>
+
+                                                    {% endif %}
+                                                </div>
+
+                                                <div>
+                                                    <input class="form-control mb-2" type="text"
+                                                        value="{% trans 'Name —' %} {{ user_profile.full_name|default_if_none:'None'|default:'None' }}"
+                                                        readonly tabindex="-1">
+
+                                                    <input class="form-control mb-2" type="text"
+                                                        value="{% trans 'Bio —' %} {{ user_profile.bio|default_if_none:'None'|default:'None' }}"
+                                                        readonly tabindex="-1">
+
+                                                    <input class="form-control mb-2" type="text"
+                                                        value="{% trans 'Phone —' %} {{ user_profile.phone|default_if_none:'None'|default:'None' }}"
+                                                        readonly tabindex="-1">
+                                                    {% if user_profile.verified == True %}
+                                                    <div class="p-4 border rounded">
+                                                        <span>{% trans "Verified" %}</span> <span> <i class="fas fa-check-circle"></i> </span>
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="p-4 border rounded">
+                                                        <span>{% trans "Not verified" %} </span> <span> <i class="fas fa-x"></i> </span>
+                                                    </div>
+                                                    {% endif %}
+                                                    <div class="p-4 border rounded">
+                                                       <a href="{% url 'userauths:profile-update' %}" class="btn btn-succees">{% trans "Edit Profile" %}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="mb-0">{% blocktrans %}Hello {{ request.user|title }}!{% endblocktrans %}</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>
+                                                    {% trans "From your account dashboard. you can easily check & view your" %} <a href="#">{% trans "recent orders" %}</a>,<br />
+                                                    {% trans "manage your" %} <a href="#">{% trans "shipping and billing addresses" %}</a> {% trans "and" %} <a href="#">{% trans "edit your password and account details." %}</a>
+                                                </p>
+                                            </div>
+                                            <!-- <div class="mt-4">
+                                                <p>{{ month }}</p>
+                                                <p>{{ total_orders }}</p>
+                                            </div> -->
+                                            <div style="height: 800px; width: 800px; object-fit: cover;">
+                                                <canvas id="myChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="mb-0">{% trans "Your Orders" %}</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>{% trans "Order" %}</th>
+                                                                <th>{% trans "Date" %}</th>
+                                                                <th>{% trans "Status" %}</th>
+                                                                <th>{% trans "Paid Status" %}</th>
+                                                                <th>{% trans "Total" %}</th>
+                                                                <th>{% trans "Actions" %}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for o in orders_list %}
+                                                            <tr>
+                                                                <td>{% trans "INVOICE_NO-" %}{{ o.id }}</td>
+
+                                                                <td>{{ o.order_date|date:"d/m/Y H:i" }}</td>
+                                                                <td>{{ o.order_status|title }}</td>
+
+                                                                {% if o.paid_status %}
+                                                                    <td class="text-success"><b>✓</b></td>
+                                                                {% else %}
+                                                                    <td class="text-danger"><b><span>X</span></b></td>
+                                                                {% endif %}
+
+                                                                <td>${{ o.amount|floatformat:2 }}</td>
+                                                                <td>
+                                                                    <a href="{% url 'core:order-detail' o.id %}" class="btn-small d-block">
+                                                                        {% trans "View" %}
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            {% empty %}
+                                                            <tr>
+                                                                <td colspan="6" class="text-center">{% trans "No orders found." %}</td>
+                                                            </tr>
+                                                            {% endfor %}                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="track-orders" role="tabpanel" aria-labelledby="track-orders-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="mb-0">{% trans "Orders tracking" %}</h3>
+                                            </div>
+                                            <div class="card-body contact-from-area">
+                                                <p>{% trans "To track your order please enter your OrderID in the box below and press 'Track' button. This was given to you on your receipt and in the confirmation email you should have received." %}</p>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <form class="contact-form-style mt-30 mb-50" action="#" method="post">
+                                                            <div class="input-style mb-20">
+                                                                <label>{% trans "Order ID" %}</label>
+                                                                <input name="order-id" placeholder="Found in your order confirmation email" type="text" />
+                                                            </div>
+                                                            <div class="input-style mb-20">
+                                                                <label>{% trans "Billing email" %}</label>
+                                                                <input name="billing-email" placeholder="Email you used during checkout" type="email" />
+                                                            </div>
+                                                            <button class="submit submit-auto-width" type="submit">{% trans "Track" %}</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
+                                        <div class="row">
+                                                <div>
+                                                    <form class="mb-4" method="POST" > {% csrf_token %}
+                                                        <div class="card-hdeader">
+                                                            <h5>{% trans "Add Address" %}</h5>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <input placeholder="Address" required="" class="form-control" name="address" type="text" />
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <input placeholder="Phone" required="" class="form-control" name="mobile" />
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <button type="submit" class="btn btn-fill-out submit font-weight-bold" name="submit" value="Submit">{% trans "Save Address" %}</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <hr>
+                                                <br>
+                                                {% for a in address_list %}
+                                            <div class="col-lg-6">
+                                                <div class="card mb-3 mb-lg-0">
+
+                                                    <div class="card-header">
+                                                        <h4 class="mb-0">{% trans "Address" %} {{ forloop.counter }}</h4>
+                                                    </div>
+
+
+
+
+                                                    <div class="card-body border rounded ">
+                                                        <address>
+                                                            <p>{{ a.address }}</p>
+                                                            <p>{{ a.mobile }}</p>
+                                                            <!-- <p>{{ a.id }}</p> -->
+                                                            <!-- <p>{{ a.status }}</p> -->
+
+                                                        </address>
+                                                        <br>
+                                                        {% if a.status %}
+                                                            <i data-address-id="{{ a.id }}" class="fa fa-check-circle text-success check{{ a.id }} check"></i>
+                                                            <button data-address-id="{{ a.id }}"  style="display: none;" class="btn make-default-address button{{ a.id }} action_btn">{% trans "Make Default" %}</button>
+
+                                                        {% else %}
+                                                            <i data-address-id="{{ a.id }}" style="display: none;" class="fa fa-check-circle text-success check check{{ a.id }}"></i>
+                                                            <button type="button" data-address-id="{{ a.id }}"   class="btn make-default-address button{{ a.id }} action_btn">{% trans "Make Default" %}</button>
+                                                        {% endif %}
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>{% trans "Account Details" %}</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>{% trans "Already have an account?" %} <a href="page-login.html">{% trans "Log in instead!" %}</a></p>
+                                                <form method="post" name="enq">
+                                                    {% csrf_token %}
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>{% trans "First Name" %} <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="name" type="text" />
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>{% trans "Last Name" %} <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="last_name" type="text" />
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>{% trans "Display Name" %} <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="dname" type="text" />
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>{% trans "Email Address" %} <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="email" type="email" />
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>{% trans "Current Password" %} <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="password" type="password" />
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>{% trans "New Password" %} <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="npassword" type="password" />
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>{% trans "Confirm Password" %} <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="cpassword" type="password" />
+                                                        </div>
+                                                        <div class="col-md-12"> 
+                                                            <button type="submit" class="btn btn-fill-out submit font-weight-bold" name="submit" value="Submit">{% trans "Save Change" %}</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </td>
-                            <td><a href="#" class="fw-bold">#43543534</a></td>
-                            <td>{% trans "Destiny Franks" %}</td>
-                            <td>20-20-24</td>
-                            <td>$0.00</td>
-                            <td>
-                                <span class="badge badge-pill badge-soft-success">{% trans "Paid" %}</span>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-xs">{% trans "View details" %}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="transactionCheck03" />
-                                    <label class="form-check-label" for="transactionCheck03"></label>
-                                </div>
-                            </td>
-                            <td><a href="#" class="fw-bold">#43543535</a></td>
-                            <td>{% trans "John Smith" %}</td>
-                            <td>19-20-24</td>
-                            <td>$125.50</td>
-                            <td>
-                                <span class="badge badge-pill badge-soft-warning">{% trans "Pending" %}</span>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-xs">{% trans "View details" %}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="transactionCheck04" />
-                                    <label class="form-check-label" for="transactionCheck04"></label>
-                                </div>
-                            </td>
-                            <td><a href="#" class="fw-bold">#43543536</a></td>
-                            <td>{% trans "Sarah Johnson" %}</td>
-                            <td>18-20-24</td>
-                            <td>$89.99</td>
-                            <td>
-                                <span class="badge badge-pill badge-soft-info">{% trans "Processing" %}</span>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-xs">{% trans "View details" %}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="transactionCheck05" />
-                                    <label class="form-check-label" for="transactionCheck05"></label>
-                                </div>
-                            </td>
-                            <td><a href="#" class="fw-bold">#43543537</a></td>
-                            <td>{% trans "Mike Wilson" %}</td>
-                            <td>17-20-24</td>
-                            <td>$45.75</td>
-                            <td>
-                                <span class="badge badge-pill badge-soft-danger">{% trans "Cancelled" %}</span>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-xs">{% trans "View details" %}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="transactionCheck06" />
-                                    <label class="form-check-label" for="transactionCheck06"></label>
-                                </div>
-                            </td>
-                            <td><a href="#" class="fw-bold">#43543538</a></td>
-                            <td>{% trans "Emily Davis" %}</td>
-                            <td>16-20-24</td>
-                            <td>$200.25</td>
-                            <td>
-                                <span class="badge badge-pill badge-soft-success">{% trans "Paid" %}</span>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-xs">{% trans "View details" %}</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </main>
 
-<script src="{% static 'core/js/transaction.js' %}"></script>
 
+
+    <script>
+        const labels = {{ month|safe }}
+
+        const data = {
+          labels: labels,
+          datasets: [{
+            label: "{% trans 'Orders' %}",
+            backgroundColor: 'rgb(59, 183, 126)',
+            borderColor: 'rgb(59, 183, 126)',
+            data: {{ total_orders|safe }}
+          }],
+
+        };
+
+
+
+        const config = {
+          type: 'bar',
+          data: data,
+          options: {
+            tooltips: {enabled: false},
+            hover: {mode: null},
+          }
+        };
+
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+      </script>
 {% endblock content %}
+{% block extra_js %}
+     <script>
+        // Tạo một biến JavaScript toàn cục chứa URL được Django render
+        const MAKE_DEFAULT_ADDRESS_URL = "{% url 'core:make-default-address' %}";
+    </script>
+    <script src="{% static 'assets/js/function.js' %}"></script>
+{% endblock %}

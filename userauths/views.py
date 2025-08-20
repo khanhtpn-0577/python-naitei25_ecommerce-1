@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from userauths.forms import UserRegisterForm
+from userauths.forms import UserRegisterForm, ProfileForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.utils.translation import gettext as _
@@ -9,6 +9,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
+from userauths.models import User,Profile
 from django.core.mail import BadHeaderError
 import logging
 
@@ -91,6 +92,27 @@ def logout_view(request):
     logout(request)
     messages.success(request, "You logged out.")
     return redirect("userauths:sign-in")
+
+def profile_update(request):
+    profile = Profile.objects.get(user=request.user)
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.user = request.user
+            new_form.save()
+            messages.success(request, "Profile Updated Successfully.")
+            return redirect("core:dashboard")
+    else:
+        form = ProfileForm(instance=profile)
+
+    context = {
+        "form": form,
+        "profile": profile,
+    }
+
+    return render(request, "userauths/profile-edit.html", context)
+
         
         
 def activate_account(request, uidb64, token):

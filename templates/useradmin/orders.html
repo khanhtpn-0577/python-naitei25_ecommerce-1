@@ -11,23 +11,47 @@
             <p>{% trans "Manage all your orders from here" %}</p>
         </div>
         <div>
-            <input type="text" placeholder="{% trans 'Search order ID' %}" class="form-control bg-white" />
+            <form method="GET" class="d-inline">
+                <input type="text" 
+                       name="search" 
+                       value="{{ search_query }}" 
+                       placeholder="{% trans 'Search order ID, name, email, phone' %}" 
+                       class="form-control bg-white" />
+                {% if status_filter %}
+                    <input type="hidden" name="status" value="{{ status_filter }}">
+                {% endif %}
+            </form>
         </div>
     </div>
     <div class="card mb-4">
         <header class="card-header">
             <div class="row gx-3">
                 <div class="col-lg-4 col-md-6 me-auto">
-                    <input type="text" placeholder="{% trans 'Search...' %}" class="form-control" />
+                    <form method="GET" class="d-inline">
+                        <input type="text" 
+                               name="search" 
+                               value="{{ search_query }}" 
+                               placeholder="{% trans 'Search...' %}" 
+                               class="form-control"
+                               onchange="this.form.submit()" />
+                        {% if status_filter %}
+                            <input type="hidden" name="status" value="{{ status_filter }}">
+                        {% endif %}
+                    </form>
                 </div>
                 <div class="col-lg-2 col-6 col-md-3">
-                    <select class="form-select">
-                        <option>{% trans "Status" %}</option>
-                        <option>{% trans "Processing" %}</option>
-                        <option>{% trans "Shipped" %}</option>
-                        <option>{% trans "Delivered" %}</option>
-                        <option>{% trans "Show all" %}</option>
-                    </select>
+                    <form method="GET" class="d-inline">
+                        <select class="form-select" name="status" onchange="this.form.submit()">
+                            {% for value, label in status_choices %}
+                                <option value="{{ value }}" {% if status_filter == value %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if search_query %}
+                            <input type="hidden" name="search" value="{{ search_query }}">
+                        {% endif %}
+                    </form>
                 </div>
                 <div class="col-lg-2 col-6 col-md-3">
                     <select class="form-select">
@@ -39,6 +63,22 @@
             </div>
         </header>
         <div class="card-body">
+            <!-- Hiển thị thông tin filter hiện tại -->
+            {% if status_filter or search_query %}
+                <div class="alert alert-info">
+                    {% trans "Filtering results" %}:
+                    {% if status_filter %}
+                        <span class="badge bg-primary">{% trans "Status" %}: {{ status_filter|title }}</span>
+                    {% endif %}
+                    {% if search_query %}
+                        <span class="badge bg-secondary">{% trans "Search" %}: "{{ search_query }}"</span>
+                    {% endif %}
+                    <a href="{% url 'useradmin:orders' %}" class="btn btn-sm btn-outline-secondary ms-2">
+                        {% trans "Clear filters" %}
+                    </a>
+                </div>
+            {% endif %}
+            
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -67,7 +107,8 @@
                                         {% if order.order_status == 'processing' %}alert-warning
                                         {% elif order.order_status == 'shipped' %}alert-info
                                         {% elif order.order_status == 'delivered' %}alert-success
-                                        {% else %}alert-secondary
+                                        {% elif order.order_status == 'pending' %}alert-secondary
+                                        {% else %}alert-dark
                                         {% endif %}">
                                         {{ order.get_order_status_display|title }}
                                     </span>
@@ -88,7 +129,13 @@
                             </tr>
                         {% empty %}
                             <tr>
-                                <td colspan="9" class="text-center">{% trans "No orders found" %}</td>
+                                <td colspan="9" class="text-center">
+                                    {% if status_filter or search_query %}
+                                        {% trans "No orders found matching your filters" %}
+                                    {% else %}
+                                        {% trans "No orders found" %}
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

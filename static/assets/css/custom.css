@@ -1,0 +1,22 @@
+.product-thumbnail {
+    height: 280px;
+    width: 280px;
+    object-fit: cover;
+}
+
+.no-border-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.heart-icon-colored {
+    fill: aqua;
+}
+/* custom.css */
+.table-order { table-layout: fixed; width:100%; }
+.table-order th:nth-child(2),
+.table-order td:nth-child(2) { width: 140px; text-align:center; }
+.order-detail-img {
+  width:120px; height:120px; object-fit:cover; display:block; margin:0 auto;
+}

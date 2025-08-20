@@ -93,20 +93,27 @@
                 <!-- Payment Methods -->
                 <div class="payment-methods">
                     <h5 class="mb-3">{% trans "Payment Methods" %}</h5>
-                    <!-- Stripe Payment -->
-                    <button type="button" class="btn btn-primary w-100 mb-3" id="checkout-button">
-                        <i class="fab fa-cc-stripe me-2"></i>
-                        {% trans "Pay with Credit/Debit Card" %}
-                    </button>
-
                     <!-- PayPal Payment -->
-                    <div id="paypal-button-container" class="mb-3"></div>
-
-                    <!-- Cash on Delivery -->
-                    <button type="button" class="btn btn-outline-secondary w-100 mb-3" id="cod-button">
-                        <i class="fas fa-money-bill-wave me-2"></i>
-                        {% trans "Cash on Delivery" %}
-                    </button>
+                    <div class="mb-3">
+                      <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                          {% for field in payment_button_form %}
+                              {{ field }}
+                          {% endfor %}
+                          <button type="submit" class="btn btn-primary w-100">
+                              <i class="fab fa-paypal me-2"></i> Pay with PayPal
+                          </button>
+                      </form>
+                    </div>
+                    <div class="mb-3">
+                      <form action="{% url 'core:cod-checkout' %}" method="post" class="mt-3">
+                        {% csrf_token %}
+                        <input type="hidden" name="oid" value="{{ order.id }}">
+                        <button type="submit" class="btn btn-outline-secondary w-100 mb-3" id="cod-button">
+                          <i class="fas fa-money-bill-wave me-2"></i>
+                          {% trans "Cash on Delivery" %}
+                        </button>
+                      </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -147,3 +154,16 @@
 
 
 {% endblock content %}
+<script>
+  window.paypalOrderPrice = "{{ total|floatformat:2 }}";
+  window.orderOid = "{{ order.id }}";
+</script>
+
+<!-- PayPal SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=AX9bdoA9PuB-k6G2BDyq8oSnytNLxf-PVZLzgY54iz_SGfRNaGZ-ZOPeXk_5c76L4FZuZWdf1G34FKf3&currency=USD"></script>
+
+<!-- File JS riêng -->
+<script src="{% static 'assets/js/paypal.js' %}"></script>
+
+
+

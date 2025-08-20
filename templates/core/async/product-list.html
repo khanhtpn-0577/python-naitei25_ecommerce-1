@@ -1,0 +1,102 @@
+{% load i18n %}
+{% load image_tags %}
+{% load url_replace %}
+<div>
+<div class="row g-3">
+
+{% for p in products %}
+<div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+    <div class="product-cart-wrap mb-30">
+        <div class="product-img-action-wrap">
+            <div class="product-img product-img-zoom">
+                <a href="{% url 'core:product-detail' p.pid %}">
+                    <img class="default-img product-thumbnail" src="{{ p.primary_image_url }}" alt="" />
+                    <img class="hover-img product-thumbnail" src="{{ p.primary_image_url }}" alt="" />
+                </a>
+            </div>
+            <div class="product-action-1">
+                <a aria-label="{% trans 'Add To Wishlist' %}" class="action-btn add-to-wishlist" data-product-item="{{p.pid}}">
+                    <i class="fi-rs-heart"></i>
+                </a>
+                <a href="{% url 'core:product-detail' p.pid %}" class="action-btn" aria-label="{% trans 'View Details' %}">
+                    <i class="fi-rs-eye"></i>
+                </a>
+            </div>
+            <div class="product-badges product-badges-position product-badges-mrg">
+                <span class="hot">-{{ p.get_precentage|floatformat:0 }}%</span>
+            </div>
+        </div>
+        <div class="product-content-wrap">
+            <div class="product-category">
+                <a href="{% url 'core:category-product-list' p.category.cid %}">{{ p.category.title }}</a>
+            </div>
+            <h2><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a></h2>
+            <div class="product-rate-cover">
+                <i class="fas fa-star text-warning"></i>
+                <span class="font-small ml-5 text-muted">({{ p.reviews.all.count }})</span>
+            </div>
+            <div>
+                <span class="font-small text-muted">
+                    {% trans "By" %} <a href="{% url 'core:vendor-detail' p.vendor.vid %}">{{ p.vendor.title }}</a>
+                </span>
+            </div>
+            <div class="product-card-bottom">
+                <div class="product-price">
+                    <span>$</span>
+                    <span class="current-product-price-{{ p.pid }}">{{ p.amount }}</span>
+                    <span class="old-price">${{ p.old_price }}</span>
+                </div>
+                <div class="add-cart">
+                    <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ p.pid }}">
+                    <input type="hidden" class="product-pid-{{ p.pid }}" value="{{ p.pid }}">
+                    <input type="hidden" class="product-image-{{ p.pid }}" value="{{ p.primary_image_url }}">
+                    <input type="hidden" class="product-id-{{ p.pid }}" value="{{ p.pid }}">
+                    <input type="hidden" class="product-title-{{ p.pid }}" value="{{ p.title }}">
+
+                    <div class="d-flex">
+                        <button class="add add-to-cart-btn" data-index="{{ p.pid }}" style="border: none;" id="add-to-cart-btn">
+                            <i class="fi-rs-shopping-cart mr-5"></i>{% trans "Add" %}
+                        </button>
+                        <button style="border: none; background: none;" class="add-to-wishlist" data-product-item="{{p.pid}}">
+                            <i class="fi-rs-heart" style="fill: aqua;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+</div>
+<!--product grid-->
+<div class="pagination-area mt-20 mb-20">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-start">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% url_replace page=page_obj.previous_page_number %}">
+                        <i class="fi-rs-arrow-small-left"></i>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?{% url_replace page=num %}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% url_replace page=page_obj.next_page_number %}">
+                        <i class="fi-rs-arrow-small-right"></i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+</d>

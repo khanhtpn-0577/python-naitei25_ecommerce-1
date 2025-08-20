@@ -159,6 +159,7 @@ def edit_product(request, pid, vendor):
             return redirect("useradmin:dashboard-products")
     except Product.DoesNotExist:
         messages.error(request, _("Product not found."))
+
         return redirect("useradmin:dashboard-products")
     
     primary_image = Image.objects.filter(
@@ -226,6 +227,11 @@ def delete_product(request, pid, vendor):
 @login_required
 @vendor_auth_required()
 def orders(request, vendor):
+    # Lấy tham số filter từ request
+    status_filter = request.GET.get('status', '')
+    search_query = request.GET.get('search', '')
+    
+    # Query cơ bản
     orders = CartOrder.objects.filter(vendor=vendor).select_related(
         'user', 
         'user__profile'
@@ -234,11 +240,40 @@ def orders(request, vendor):
         full_name=F(FULL_NAME),
         email=F(EMAIL),
         phone=F(PHONE),
-    ).order_by(f'-{ORDER_DATE}')
+    )
+    
+    # Áp dụng filter theo status
+    if status_filter and status_filter != 'all':
+        orders = orders.filter(order_status=status_filter)
+    
+    # Áp dụng search filter
+    if search_query:
+        orders = orders.filter(
+            Q(oid__icontains=search_query) |
+            Q(user__first_name__icontains=search_query) |
+            Q(user__last_name__icontains=search_query) |
+            Q(user__email__icontains=search_query) |
+            Q(phone__icontains=search_query)
+        )
+    
+    # Sắp xếp theo ngày mới nhất
+    orders = orders.order_by(f'-{ORDER_DATE}')
+    
+    # Định nghĩa các status choices
+    status_choices = [
+        ('', _('All Status')),
+        ('pending', _('Pending')),
+        ('processing', _('Processing')),
+        ('shipped', _('Shipped')),
+        ('delivered', _('Delivered')),
+    ]
     
     context = {
         'orders': orders,
         'vendor': vendor,
+        'status_filter': status_filter,
+        'search_query': search_query,
+        'status_choices': status_choices,
     }
     return render(request, "useradmin/orders.html", context)
 
@@ -258,6 +293,7 @@ def order_detail(request, id, vendor):
         
         if order.vendor != vendor:
             messages.error(request, _("You don't have permission to view this order."))
+
             return redirect("useradmin:orders")
         
         order_items = CartOrderProducts.objects.filter(order=order)
@@ -313,14 +349,26 @@ def change_order_status(request, oid, vendor):
                         current_status, new_status
                     )
                 )
+
             else:
+                # Cập nhật trạng thái
                 order.order_status = new_status
+                
+                # AUTO-UPDATE PAID_STATUS khi delivered
+                if new_status == 'delivered' and not order.paid_status:
+                    order.paid_status = True
+                    messages.success(request, _("Đơn hàng đã giao và tự động đánh dấu đã thanh toán."))
+                else:
+                    messages.success(request, _("Đã cập nhật trạng thái đơn hàng."))
+                
                 order.save()
                 messages.success(request, _("Order status changed from '{}' to '{}'").format(
                     current_status, new_status
                 ))
+
         
         return redirect("useradmin:order_detail", order.id)
+        
     except CartOrder.DoesNotExist:
         messages.error(request, _("Order not found."))
         return redirect("useradmin:orders")

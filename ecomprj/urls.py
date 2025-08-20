@@ -26,6 +26,7 @@ urlpatterns = [
     path("", include("core.urls")),
     path("user/", include("userauths.urls", namespace="userauths")),
     path("useradmin/", include("useradmin.urls")),
+    path('paypal/', include('paypal.standard.ipn.urls')),
 ]
 
 if settings.DEBUG:

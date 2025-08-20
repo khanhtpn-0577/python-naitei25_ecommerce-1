@@ -2,6 +2,7 @@ import os
 from django.core.mail import send_mail
 import requests
 import logging
+logger = logging.getLogger(__name__)
 
 def send_activation_email(email, username, uidb64, token):
     DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "no-reply@example.com")

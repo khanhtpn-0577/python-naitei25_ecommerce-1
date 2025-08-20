@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'useradmin',
     'django.contrib.humanize',
+    'paypal.standard.ipn'
 ]
 
 MIDDLEWARE = [
@@ -151,7 +152,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 AUTH_USER_MODEL = 'userauths.User'
 
 CLOUDINARY_STORAGE = {
@@ -164,8 +165,14 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
+TEMPLATES[0]['OPTIONS']['context_processors'] += [
+    'django.template.context_processors.media',
+]
 # Login settings
 LOGIN_URL = '/user/sign-in/'
 LOGIN_REDIRECT_URL = '/useradmin/dashboard/'
 LOGOUT_REDIRECT_URL = '/user/sign-in/'
+#paypal
+PAYPAL_RECEIVER_EMAIL = 'sb-ss1ey44593921@business.example.com'
+PAYPAL_TEST = True
+PAYPAL_CURRENCY = "USD"

@@ -1,0 +1,177 @@
+/* Category image */
+.category-img {
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+}
+
+/* Product image */
+.product-img {
+    height: 280px;
+    width: 280px;
+    object-fit: cover;
+}
+
+.order-detail-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+/* Product upload preview image */
+.product-upload-preview {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+select {
+    appearance: none;
+    outline: 0;
+    background: rgba(240, 240, 240, 0.548);
+    background-image: none;
+    width: 100%;
+    height: 700px;
+    color: black;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+}
+ 
+#id_category {
+    position: relative;
+    display: block;
+    width: 15em;
+    font-family: poppins;
+    border: none;
+    height: 3em;
+    line-height: 3;
+    overflow: hidden;
+    border-radius: .25em;
+    padding-bottom: 10px;
+}
+
+/* Product images consistent styling */
+.img-sm {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: cover !important;
+    border-radius: 15px !important;
+}
+
+/* Add styling for thumbnail border and hover effect */
+.img-sm.img-thumbnail {
+    padding: 0.25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 15px !important;
+}
+
+.itemside .left img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.itemside {
+    display: flex;
+    align-items: center;
+}
+
+.itemside .left {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+}
+
+/* Shop page styles */
+.shop-header-bg {
+    height: 150px;
+}
+
+/* CSS để làm ảnh vừa vào khung - THÊM MỚI từ shop_page.html */
+.shop-profile-img-container {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: -120px; /* Giữ margin-top từ CSS cũ */
+}
+
+/* Cập nhật CSS cho img trong shop-profile-img-container */
+.shop-profile-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Quan trọng: đảm bảo ảnh lấp đầy không gian nhưng giữ tỉ lệ */
+    object-position: center; /* Canh giữa ảnh */
+    border-radius: 8px; /* Giữ border-radius từ CSS cũ */
+}
+
+/* Cập nhật center-xy để phù hợp với cả inline và global styles */
+.center-xy {
+    position: relative; /* Thay đổi từ absolute thành relative như trong shop_page.html */
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Product grid styles */
+.product-grid-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Order item styles */
+.order-item-img {
+    border-radius: 4px;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+/* Table responsive styling */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Badge styling */
+.badge.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.badge.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.badge.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.badge.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.badge.alert-secondary {
+    background-color: #e2e3e5;
+    color: #383d41;
+    border: 1px solid #d6d8db;
+}

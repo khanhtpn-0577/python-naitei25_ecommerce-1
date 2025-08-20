@@ -292,6 +292,21 @@ class Category(models.Model):
         db_table = 'category'
         verbose_name = "Category"
         verbose_name_plural = "Categories"
+        
+    def get_primary_image(self):
+        """Trả về đối tượng Image chính (primary)."""
+        return Image.objects.filter(
+            object_type='Category',
+            object_id=self.cid,
+            is_primary=True
+        ).first()
+    @property
+    def primary_image_url(self):
+        """Trả về URL của ảnh chính (nếu có)."""
+        image = self.get_primary_image()
+        if image:
+            return image.image.url.replace("http://", "https://")
+        return '/static/assets/imgs/default.jpg'
 
 class Product(models.Model):
     pid = ShortUUIDField(unique=True, length=10, max_length=C.MAX_LENGTH_PID , alphabet="abcdefgh12345", primary_key=True)
@@ -458,16 +473,27 @@ class CartOrder(models.Model):
 class CartOrderProducts(models.Model):
     order = models.ForeignKey(CartOrder, on_delete=models.CASCADE, related_name='order_products')
     item = models.CharField(max_length=C.MAX_LENGTH_ITEM)
-    image = models.CharField(max_length=C.MAX_LENGTH_IMAGE_URL)
+    image = models.TextField(max_length=C.MAX_LENGTH_IMAGE_URL)
     qty = models.PositiveIntegerField(default=1)
     price = models.DecimalField(max_digits=C.MAX_DIGITS_AMOUNT, decimal_places=2)
     total = models.DecimalField(max_digits=C.MAX_DIGITS_AMOUNT, decimal_places=2)
 
     def __str__(self):
         return f"{self.item} (x{self.qty})"
-
+    
+    @property
+    def image_src(self):
+        if not self.image:
+            return ""
+        img = self.image.strip()
+        # Trả thẳng nếu là URL tuyệt đối hoặc data URI
+        if img.startswith(("http://", "https://", "data:")):
+            return img
+        # Còn lại coi là đường dẫn trong MEDIA
+        return f"{settings.MEDIA_URL}{img.lstrip('/')}"
     class Meta:
         db_table = 'cart_order_products'
         verbose_name = "Cart Order Product"
         verbose_name_plural = "Cart Order Products"
         ordering = ['-id']
+
