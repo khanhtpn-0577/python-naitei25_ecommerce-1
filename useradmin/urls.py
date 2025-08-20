@@ -14,5 +14,11 @@ urlpatterns = [
     path("change_order_status/<oid>/", views.change_order_status, name="change_order_status"),
     path("shop_page/", views.shop_page, name="shop_page"),
     path("reviews/", views.reviews, name="reviews"),
-    path('vendor/create/', views.create_vendor, name='create-vendor'),
+    path("vendor/create/", views.create_vendor, name="create-vendor"),
+    path("coupons/", views.coupons, name="coupons"),
+    path("coupons/add/", views.add_coupon, name="add_coupon"),
+    path("coupons/edit/<int:coupon_id>/", views.edit_coupon, name="edit_coupon"),
+    path("coupons/delete/<int:coupon_id>/", views.delete_coupon, name="delete_coupon"),
+    path("coupons/detail/<int:coupon_id>/", views.coupon_detail, name="coupon_detail"),
+    path("coupons/toggle/<int:coupon_id>/", views.toggle_coupon_status, name="toggle_coupon_status"),
 ]

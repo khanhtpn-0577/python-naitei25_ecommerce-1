@@ -51,6 +51,12 @@
                             <span class="text">{% trans "Orders" %}</span>
                         </a>
                     </li>
+                    <li class="menu-item {% if '/useradmin/coupons/' in request.path %}active{% endif %}">
+                        <a class="menu-link" href="{% url 'useradmin:coupons' %}">
+                            <i class="icon material-icons md-local_offer"></i>
+                            <span class="text">{% trans "Coupons" %}</span>
+                        </a>
+                    </li>
                     <li class="menu-item">
                         <a class="menu-link" href="{% url 'useradmin:shop_page' %}">
                             <i class="icon material-icons md-store"></i>

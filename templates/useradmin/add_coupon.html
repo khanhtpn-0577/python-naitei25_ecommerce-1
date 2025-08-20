@@ -1,0 +1,207 @@
+{% extends 'useradmin/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+{% block content %}
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title">{{ title }}</h2>
+            <p>{% trans "Manage discount coupon details" %}</p>
+        </div>
+        <div>
+            <a href="{% url 'useradmin:coupons' %}" class="btn btn-light btn-sm rounded">
+                <i class="material-icons md-arrow_back"></i> {% trans "Back to Coupons" %}
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>{% trans "Coupon Information" %}</h4>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{% trans "Please correct the errors below:" %}</strong>
+                            {{ form.errors }}
+                        </div>
+                    {% endif %}
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <label for="{{ form.code.id_for_label }}" class="form-label">
+                                        {% trans "Coupon Code" %} <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.code }}
+                                    <small class="form-text text-muted">
+                                        {% trans "Enter a unique coupon code (e.g., DISCOUNT20)" %}
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <label for="{{ form.discount.id_for_label }}" class="form-label">
+                                        {% trans "Discount Percentage" %} <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.discount }}
+                                    <small class="form-text text-muted">
+                                        {% trans "Enter discount percentage (0-100)" %}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <label for="{{ form.min_order_amount.id_for_label }}" class="form-label">
+                                        {% trans "Minimum Order Amount" %} <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.min_order_amount }}
+                                    <small class="form-text text-muted">
+                                        {% trans "Minimum order value to apply coupon" %}
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <label for="{{ form.max_discount_amount.id_for_label }}" class="form-label">
+                                        {% trans "Maximum Discount Amount" %} <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.max_discount_amount }}
+                                    <small class="form-text text-muted">
+                                        {% trans "Maximum discount amount in dollars" %}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="{{ form.expiry_date.id_for_label }}" class="form-label">
+                                {% trans "Expiry Date" %} <span class="text-danger">*</span>
+                            </label>
+                            {{ form.expiry_date }}
+                            <small class="form-text text-muted">
+                                {% trans "Select when this coupon expires" %}
+                            </small>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <div class="form-check">
+                                        {{ form.active }}
+                                        <label class="form-check-label" for="{{ form.active.id_for_label }}">
+                                            {% trans "Active" %}
+                                        </label>
+                                        <small class="form-text text-muted d-block">
+                                            {% trans "Check to make this coupon available for use" %}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <div class="form-check">
+                                        {{ form.apply_once_per_user }}
+                                        <label class="form-check-label" for="{{ form.apply_once_per_user.id_for_label }}">
+                                            {% trans "One-time use per user" %}
+                                        </label>
+                                        <small class="form-text text-muted d-block">
+                                            {% trans "Each user can only use this coupon once" %}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                {% if action == 'add' %}
+                                    <i class="material-icons md-add"></i> {% trans "Create Coupon" %}
+                                {% else %}
+                                    <i class="material-icons md-save"></i> {% trans "Update Coupon" %}
+                                {% endif %}
+                            </button>
+                            <a href="{% url 'useradmin:coupons' %}" class="btn btn-secondary">
+                                {% trans "Cancel" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>{% trans "Coupon Preview" %}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="coupon-preview p-3 border rounded bg-light">
+                        <div class="text-center">
+                            <h5 class="coupon-code text-primary" id="preview-code">
+                                {% if coupon %}{{ coupon.code }}{% else %}DISCOUNT20{% endif %}
+                            </h5>
+                            <p class="coupon-discount text-success" id="preview-discount">
+                                {% if coupon %}{{ coupon.discount|floatformat:1 }}%{% else %}20%{% endif %} OFF
+                            </p>
+                            <small class="text-muted">
+                                {% trans "Min order" %}: $<span id="preview-min">{% if coupon %}{{ coupon.min_order_amount|floatformat:2 }}{% else %}50.00{% endif %}</span>
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <h6>{% trans "Tips:" %}</h6>
+                        <ul class="list-unstyled small text-muted">
+                            <li>• {% trans "Use clear, memorable coupon codes" %}</li>
+                            <li>• {% trans "Set reasonable minimum order amounts" %}</li>
+                            <li>• {% trans "Consider seasonal or event-based expiry dates" %}</li>
+                            <li>• {% trans "Monitor coupon usage regularly" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Live preview update
+document.addEventListener('DOMContentLoaded', function() {
+    const codeInput = document.getElementById('id_code');
+    const discountInput = document.getElementById('id_discount');
+    const minAmountInput = document.getElementById('id_min_order_amount');
+    
+    const previewCode = document.getElementById('preview-code');
+    const previewDiscount = document.getElementById('preview-discount');
+    const previewMin = document.getElementById('preview-min');
+    
+    function updatePreview() {
+        if (codeInput && codeInput.value) {
+            previewCode.textContent = codeInput.value.toUpperCase();
+        }
+        if (discountInput && discountInput.value) {
+            previewDiscount.textContent = discountInput.value + '% OFF';
+        }
+        if (minAmountInput && minAmountInput.value) {
+            previewMin.textContent = parseFloat(minAmountInput.value).toFixed(2);
+        }
+    }
+    
+    if (codeInput) codeInput.addEventListener('input', updatePreview);
+    if (discountInput) discountInput.addEventListener('input', updatePreview);
+    if (minAmountInput) minAmountInput.addEventListener('input', updatePreview);
+});
+</script>
+
+{% endblock content %}

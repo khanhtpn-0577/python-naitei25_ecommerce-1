@@ -1,0 +1,86 @@
+{% extends 'useradmin/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+{% block content %}
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title">{% trans "Delete Coupon" %}</h2>
+            <p>{% trans "Are you sure you want to delete this coupon?" %}</p>
+        </div>
+        <div>
+            <a href="{% url 'useradmin:coupons' %}" class="btn btn-light btn-sm rounded">
+                <i class="material-icons md-arrow_back"></i> {% trans "Back to Coupons" %}
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">
+                        <i class="material-icons md-warning"></i>
+                        {% trans "Confirm Deletion" %}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <strong>{% trans "Warning!" %}</strong>
+                        {% trans "This action cannot be undone. Deleting this coupon will:" %}
+                        <ul class="mt-2 mb-0">
+                            <li>{% trans "Remove the coupon permanently" %}</li>
+                            <li>{% trans "Make it unavailable for future use" %}</li>
+                            <li>{% trans "Not affect past orders that used this coupon" %}</li>
+                        </ul>
+                    </div>
+
+                    <div class="coupon-info bg-light p-3 rounded mb-4">
+                        <h5>{% trans "Coupon Details" %}:</h5>
+                        <table class="table table-borderless mb-0">
+                            <tr>
+                                <td><strong>{% trans "Code" %}:</strong></td>
+                                <td><span class="badge bg-primary">{{ coupon.code }}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>{% trans "Discount" %}:</strong></td>
+                                <td>{{ coupon.discount|floatformat:1 }}%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{% trans "Expiry Date" %}:</strong></td>
+                                <td>{{ coupon.expiry_date|date:"d M Y H:i" }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{% trans "Status" %}:</strong></td>
+                                <td>
+                                    {% if coupon.active %}
+                                        <span class="badge bg-success">{% trans "Active" %}</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{% trans "Inactive" %}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{% url 'useradmin:coupons' %}" class="btn btn-secondary">
+                            <i class="material-icons md-close"></i> {% trans "Cancel" %}
+                        </a>
+                        
+                        <form method="POST" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('{% trans "Are you absolutely sure you want to delete this coupon?" %}')">
+                                <i class="material-icons md-delete"></i> {% trans "Delete Coupon" %}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

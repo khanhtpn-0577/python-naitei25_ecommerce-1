@@ -1,0 +1,218 @@
+{% extends 'useradmin/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+{% block content %}
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title">{% trans "Coupon Details" %}: {{ coupon.code }}</h2>
+            <p>{% trans "View coupon information and usage statistics" %}</p>
+        </div>
+        <div>
+            <a href="{% url 'useradmin:coupons' %}" class="btn btn-light btn-sm rounded">
+                <i class="material-icons md-arrow_back"></i> {% trans "Back to Coupons" %}
+            </a>
+            <a href="{% url 'useradmin:edit_coupon' coupon.id %}" class="btn btn-primary btn-sm rounded">
+                <i class="material-icons md-edit"></i> {% trans "Edit Coupon" %}
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Coupon Information -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>{% trans "Coupon Information" %}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td><strong>{% trans "Code" %}:</strong></td>
+                                    <td>
+                                        <span class="badge bg-primary fs-6">{{ coupon.code }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{% trans "Discount" %}:</strong></td>
+                                    <td>{{ coupon.discount|floatformat:1 }}%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{% trans "Min Order Amount" %}:</strong></td>
+                                    <td>${{ coupon.min_order_amount|floatformat:2|intcomma }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{% trans "Max Discount" %}:</strong></td>
+                                    <td>${{ coupon.max_discount_amount|floatformat:2|intcomma }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td><strong>{% trans "Expiry Date" %}:</strong></td>
+                                    <td>
+                                        {{ coupon.expiry_date|date:"d M Y H:i" }}
+                                        {% if is_expired %}
+                                            <span class="badge bg-danger">{% trans "Expired" %}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{% trans "Status" %}:</strong></td>
+                                    <td>
+                                        {% if coupon.active and not is_expired %}
+                                            <span class="badge bg-success">{% trans "Active" %}</span>
+                                        {% elif not coupon.active %}
+                                            <span class="badge bg-secondary">{% trans "Inactive" %}</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">{% trans "Expired" %}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{% trans "One-time use" %}:</strong></td>
+                                    <td>
+                                        {% if coupon.apply_once_per_user %}
+                                            <span class="text-success">{% trans "Yes" %}</span>
+                                        {% else %}
+                                            <span class="text-muted">{% trans "No" %}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{% trans "Total Usage" %}:</strong></td>
+                                    <td>
+                                        <span class="badge bg-info">{{ total_usage }} {% trans "times" %}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Usage History -->
+            <div class="card">
+                <div class="card-header">
+                    <h4>{% trans "Usage History" %}</h4>
+                </div>
+                <div class="card-body">
+                    {% if coupon_users %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "User" %}</th>
+                                        <th>{% trans "Email" %}</th>
+                                        <th>{% trans "Used Date" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for coupon_user in coupon_users %}
+                                        <tr>
+                                            <td>
+                                                {% if coupon_user.user %}
+                                                    {{ coupon_user.user.get_full_name|default:coupon_user.user.username }}
+                                                {% else %}
+                                                    <em>{% trans "Deleted User" %}</em>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if coupon_user.user %}
+                                                    {{ coupon_user.user.email }}
+                                                {% else %}
+                                                    <em>{% trans "N/A" %}</em>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <em>{% trans "Date not tracked" %}</em>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="material-icons md-info" style="font-size: 48px;"></i>
+                            <p>{% trans "This coupon hasn't been used yet." %}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Quick Actions -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>{% trans "Quick Actions" %}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'useradmin:edit_coupon' coupon.id %}" class="btn btn-primary">
+                            <i class="material-icons md-edit"></i> {% trans "Edit Coupon" %}
+                        </a>
+                        
+                        <a href="{% url 'useradmin:toggle_coupon_status' coupon.id %}" 
+                           class="btn {% if coupon.active %}btn-warning{% else %}btn-success{% endif %}">
+                            {% if coupon.active %}
+                                <i class="material-icons md-visibility_off"></i> {% trans "Deactivate" %}
+                            {% else %}
+                                <i class="material-icons md-visibility"></i> {% trans "Activate" %}
+                            {% endif %}
+                        </a>
+                        
+                        <a href="{% url 'useradmin:delete_coupon' coupon.id %}" class="btn btn-danger">
+                            <i class="material-icons md-delete"></i> {% trans "Delete Coupon" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="card">
+                <div class="card-header">
+                    <h4>{% trans "Statistics" %}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <div class="p-3">
+                                <h5 class="text-primary">{{ total_usage }}</h5>
+                                <small class="text-muted">{% trans "Total Uses" %}</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3">
+                                <h5 class="text-success">
+                                    ${{ coupon.max_discount_amount|floatformat:2 }}
+                                </h5>
+                                <small class="text-muted">{% trans "Max Savings" %}</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if is_expired %}
+                        <div class="alert alert-warning mt-3">
+                            <i class="material-icons md-warning"></i>
+                            {% trans "This coupon has expired and cannot be used anymore." %}
+                        </div>
+                    {% elif not coupon.active %}
+                        <div class="alert alert-info mt-3">
+                            <i class="material-icons md-info"></i>
+                            {% trans "This coupon is currently inactive." %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
