@@ -129,7 +129,7 @@ def cart_view(request):
         # Tạo hoặc cập nhật đơn hàng
         order, created = CartOrder.objects.get_or_create(
             user=request.user,
-            order_status='processing',
+            order_status='pending',
             defaults={
                 "vendor": vendor,
                 "amount": Decimal(cart_total_amount)
