@@ -762,7 +762,7 @@ def build_products_qs(request):
 def product_list_view(request):
     # dữ liệu cho sidebar/filter
     tags = Tag.objects.all().order_by("-id")[:TAG_LIMIT]
-    categories_all = Category.objects.all()
+    categories_all = Category.objects.all().order_by("title")
     vendors_all = Vendor.objects.all()
     min_max_price = Product.objects.aggregate(Min("amount"), Max("amount"))
 

@@ -107,17 +107,13 @@
                         <div class="search-style-2">
                             <form action="{% url 'core:search' %}" method="GET">
                                 <select class="select-active">
-                                    <option>{% trans "All Categories" %}</option>
-                                    <option>{% trans "Milks and Dairies" %}</option>
-                                    <option>{% trans "Wines & Alcohol" %}</option>
-                                    <option>{% trans "Clothing & Beauty" %}</option>
-                                    <option>{% trans "Pet Foods & Toy" %}</option>
-                                    <option>{% trans "Fast food" %}</option>
-                                    <option>{% trans "Baking material" %}</option>
-                                    <option>{% trans "Vegetables" %}</option>
-                                    <option>{% trans "Fresh Seafood" %}</option>
-                                    <option>{% trans "Noodles & Rice" %}</option>
-                                    <option>{% trans "Ice cream" %}</option>
+                                    <option>{% trans "Alls" %}</option>
+                                    {% for c in categories %}
+                                    <option value="{{ c.cid }}"
+                                            {% if request.GET.category == c.cid|stringformat:"s" %}selected{% endif %}>
+                                        {{ c.title }}
+                                    </option>
+                                    {% endfor %}
                                 </select>
                                 <input type="text" placeholder="{% trans 'Search for items...' %}" name="q" />
                                 <button class="material-symbols-outlined" type="submit"><span class="material-symbols-outlined">search</span></button>

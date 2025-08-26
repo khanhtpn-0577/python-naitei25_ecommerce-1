@@ -28,85 +28,115 @@
                         <i class="fi-rs-angle-small-down angle-down"></i>
                         <i class="fi-rs-angle-small-up angle-up"></i>
                     </a>
-                    <div class="shop-product-fillter-header">
+                        <div class="shop-product-fillter-header">
                         <div class="row">
-                            <div class="col-xl-3 col-lg-6 col-md-6 mb-lg-0 mb-md-2 mb-sm-2">
-                                <div class="card">
-                                    <h5 class="mb-30">{% trans "By Categories"%}</h5>
-                                    <div class="categories-dropdown-wrap font-heading">
-                                        <ul>
-                                            {% for c in categories %}
-                                            <li>
-                                                <input data-filter="category" class="form-check-input filter-checkbox" type="checkbox" name="category[]" id="exampleCheckbox2" value="{{ c.cid }}" />
-                                                &nbsp;&nbsp;
-                                                <a href="{% url 'core:category-product-list' c.cid %}"> <img src="{{c.primary_image_url}}" alt="" />{{ c.title }}</a>
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
+                            <!-- CATEGORIES -->
+                            <div class="col-12 col-lg-4 mb-lg-0 mb-3">
+                            <div class="card">
+                                <h5 class="mb-3">{% trans "By Categories" %}</h5>
+
+                                <div class="categories-dropdown-wrap font-heading scroll-area">
+                                <ul>
+                                    {% for c in categories%}
+                                    <li>
+                                    <input
+                                        data-filter="category"
+                                        class="form-check-input filter-checkbox"
+                                        type="checkbox"
+                                        name="category[]"
+                                        value="{{ c.cid }}"
+                                    />
+                                    <a href="{% url 'core:category-product-list' c.cid %}">
+                                        <img class="filter-thumb" src="{{ c.primary_image_url }}" alt="" />
+                                        {{ c.title }}
+                                    </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-6 col-md-6 mb-lg-0 mb-md-2 mb-sm-2">
-                                <div class="card">
-                                    <h5 class="mb-30">{% trans "By Vendors"%}</h5>
-                                    <div class="d-flex">
-                                        <div class="customeee-checkbox mr-80">
-                                            {% for v in vendors %}
-                                            <input class="form-check-input filter-checkbox" data-filter="vendor" type="checkbox" name="vendor[]" id="exampleCheckbox1" value="{{ v.vid }}" />
-                                                &nbsp;&nbsp;
-                                                <a href="{% url 'core:vendor-detail' v.vid %}"> <img src="{{v.primary_image_url}}" alt="" />{{ v.title }}</a>
-                                            <br /><br />
-                                            {% endfor %}
-                                        </div>
-                                    </div>
+                            </div>
+
+                            <!-- VENDORS -->
+                            <div class="col-12 col-lg-4 mb-lg-0 mb-3">
+                            <div class="card">
+                                <h5 class="mb-3">{% trans "By Vendors" %}</h5>
+                                <div class="categories-dropdown-wrap font-heading scroll-area">
+
+                                <ul class="vendor-list">
+                                    {% for v in vendors%}
+                                    <li>
+                                    <input
+                                        class="form-check-input filter-checkbox"
+                                        data-filter="vendor"
+                                        type="checkbox"
+                                        name="vendor[]"
+                                        value="{{ v.vid }}"
+                                    />
+                                    <a href="{% url 'core:vendor-detail' v.vid %}">
+                                        <img class="filter-thumb" src="{{ v.primary_image_url }}" alt="" />
+                                        {{ v.title }}
+                                    </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-6 col-md-6 mb-lg-0 mb-md-5 mb-sm-5">
-                                <div class="card">
-                                    <h5 class="mb-10">{% trans "By Price"%}</h5>
-                                    <div class="sidebar-widget price_range range">
-                                        <div class="price-filter mb-20">
-                                          <div class="price-filter-inner">
-                                            <div id="slidder-range" class="mb-20"></div>
-                                            <input type="range"
-                                                   name="price_range"
-                                                   value="{{ min_max_price.amount__min|price_format }}"
-                                                   class="slider-range"
-                                                   id="range"
-                                                   min="{{ min_max_price.amount__min }}"
-                                                   max="{{ min_max_price.amount__max }}"
-                                                   oninput="max_price.value=this.value; slider_range_value2.textContent = '$' + parseFloat(this.value).toFixed(2);">
+                            </div>
 
-                                            <div class="d-flex justify-content-between">
-                                                <div class="caption">
-                                                    {% trans "From:" %} <strong id="slider-range-value1" class="text-brand">${{ min_max_price.amount__min|price_format }}</strong>
-                                                </div>
-                                                <div class="caption">
-                                                    {% trans "To:" %} <strong id="slider-range-value2" class="text-brand">${{ min_max_price.amount__max|price_format }}</strong>
-                                                </div>
-                                            </div>
+                            <!-- PRICE -->
+                            <div class="col-12 col-lg-4 mb-lg-0 mb-3">
+                            <div class="card price-card">
+                                <h5 class="mb-2">{% trans "By Price" %}</h5>
 
-                                            <input type="number"
-                                                   name="price_input"
-                                                   value="{{ min_max_price.amount__min|price_format }}"
-                                                   id="max_price"
-                                                   min="{{ min_max_price.amount__min }}"
-                                                   max="{{ min_max_price.amount__max }}"
-                                                   placeholder="Current Price"
-                                                   onkeyup="range.value=this.value; slider_range_value2.textContent = '$' + parseFloat(this.value).toFixed(2);">
+                                <div class="sidebar-widget price_range range">
+                                <div class="price-filter">
+                                    <div class="price-filter-inner">
+                                    <!-- slider -->
+                                    <input
+                                        type="range"
+                                        name="price_range"
+                                        value="{{ min_max_price.amount__min|price_format }}"
+                                        class="slider-range"
+                                        id="range"
+                                        min="{{ min_max_price.amount__min }}"
+                                        max="{{ min_max_price.amount__max }}"
+                                        oninput="max_price.value=this.value; slider_range_value2.textContent = '$' + parseFloat(this.value).toFixed(2);"
+                                    />
+
+                                    <div class="d-flex justify-content-between my-2">
+                                        <div class="caption">
+                                        {% trans "From:" %} <strong id="slider-range-value1" class="text-brand">${{ min_max_price.amount__min|price_format }}</strong>
                                         </div>
-                                        </div>
-                                        <div class="custome-checkbox">
-                                            <button class="btn mt-20 w-100" type="button" id="price-filter-btn">Filter</button>
-                                            <!-- <h3>{{ min_max_price }}</h3> -->
+                                        <div class="caption">
+                                        {% trans "To:" %} <strong id="slider-range-value2" class="text-brand">${{ min_max_price.amount__max|price_format }}</strong>
                                         </div>
                                     </div>
+
+                                    <!-- number input -->
+                                    <input
+                                        type="number"
+                                        name="price_input"
+                                        value="{{ min_max_price.amount__min|price_format }}"
+                                        id="max_price"
+                                        min="{{ min_max_price.amount__min }}"
+                                        max="{{ min_max_price.amount__max }}"
+                                        placeholder="Current Price"
+                                        onkeyup="range.value=this.value; slider_range_value2.textContent = '$' + parseFloat(this.value || 0).toFixed(2);"
+                                    />
+                                    </div>
                                 </div>
+
+                                <div class="custome-checkbox">
+                                    <button class="btn mt-2 w-100" type="button" id="price-filter-btn">Filter</button>
+                                </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                    <div class="shop-product-fillter">
+                    <div class="shop-product-fillter1">
                         <div class="totall-product">
                             <p>We found <strong id="product-count" class="text-brand">{{ page_obj.paginator.count }}</strong> items for you!</p>
                         </div>
